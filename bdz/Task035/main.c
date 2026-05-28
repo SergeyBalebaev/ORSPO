@@ -4,8 +4,13 @@
 int main(int argc, char *argv[])
 {
   int sum = 0;
-
-  // Enter your code
+  int num = 0;
+  printf("%d\n", argc);
+  printf("%s\n", argv[0]);
+  for(int i = 1; i < argc; i++) {
+    num = atoi(argv[i]);
+    sum += num;
+  }
 
   printf("%d\n", sum);
   return 0;

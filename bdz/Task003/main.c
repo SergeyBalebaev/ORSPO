@@ -1,7 +1,5 @@
 #include <stdio.h>
 
-#define X
-
 int main()
 {
     int a = 0;

@@ -28,7 +28,7 @@ int main() {
     printf("%d\n", *uninitialized);
 
     int *null_ptr = NULL;
-    printf("%d\n", *null_ptr);
+    //printf("%d\n", *null_ptr);
 
     return 0;
 }

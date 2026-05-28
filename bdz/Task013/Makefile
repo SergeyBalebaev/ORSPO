@@ -1,3 +1,4 @@
+.PHONY: clean
 CC = gcc
 CFLAGS = -Wall -Wpedantic -Werror
 TARGET = main

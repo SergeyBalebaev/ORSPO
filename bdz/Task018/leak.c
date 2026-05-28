@@ -7,6 +7,9 @@ int main() {
     for (int i = 0; i < N_mas; i++) {
         A[i] = (double*)malloc(N_mas * sizeof(double));
     }
+    for(int i = 0; i < N_mas; i++) {
+	free(A[i]);
+    }
 
     free(A);
     return 0;

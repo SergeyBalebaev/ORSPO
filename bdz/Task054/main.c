@@ -23,5 +23,6 @@ int main() {
         printf("Found: %d\n", found->data);
 
     free_list(head);
+    print_list(head);
     return 0;
 }

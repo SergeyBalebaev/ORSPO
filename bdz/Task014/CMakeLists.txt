@@ -1,4 +1,4 @@
 cmake_minimum_required(VERSION 3.16)
-project(main)
+project(zuev)
 set(SOURCE main.c)
-add_executable(main ${SOURCE})
+add_executable(zuev ${SOURCE})

@@ -7,7 +7,7 @@ int main() {
     Node* root = NULL;
 
     root = insert(root, 50);
-    root = insert(root, 30);
+    root = insert(root, 30); 
     root = insert(root, 20);
     root = insert(root, 40);
     root = insert(root, 70);
@@ -20,10 +20,11 @@ int main() {
 
     printf("Delete 20\n");
     root = delete(root, 20);
-    printf("Inorder traversal: ");
+    
+    
     inorder(root);
     printf("\n");
-
+    
     printf("Delete 30\n");
     root = delete(root, 30);
     printf("Inorder traversal: ");
@@ -35,13 +36,14 @@ int main() {
     printf("Inorder traversal: ");
     inorder(root);
     printf("\n");
-
+    
     int key = 60;
     Node* found = search(root, key);
     if (found)
         printf("Key %d found in the tree\n", key);
     else
         printf("Key %d not found\n", key);
-
+    
+    free_tree(root);
     return 0;
 }

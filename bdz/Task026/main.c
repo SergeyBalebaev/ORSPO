@@ -1,8 +1,10 @@
 #include <stdio.h>
+#include <assert.h>
 
 void seconds_to_time(int n)
 {
-  // Enter your code
+  assert(n >= 0);
+  printf("%d : %d : %d", n/3600, (n%3600)/60, (n%3600)%60);
 }
 
 int main(void)

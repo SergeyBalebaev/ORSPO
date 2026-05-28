@@ -12,10 +12,10 @@ int main() {
 
     print_list(head);
 
-    insert_at(&head, 99, 1);
+    insert_at(&head, 99, 0);
     print_list(head);
 
-    delete_value(&head, 2);
+    delete_value(&head, 99);
     print_list(head);
 
     Node* found = find(head, 99);

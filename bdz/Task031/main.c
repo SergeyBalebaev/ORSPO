@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <math.h>
 
 double my_function(int x)
 {
-  // Enter your code
+  return (pow(x, 2) + 5*x + 6)/(pow(x, 2) + x + 1);
 }
 
 int main(void)
@@ -12,3 +13,4 @@ int main(void)
   printf("%.6f\n", my_function(x));
   return 0;
 }
+

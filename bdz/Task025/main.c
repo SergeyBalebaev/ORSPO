@@ -1,18 +1,23 @@
 #include <stdio.h>
+#include <assert.h>
 
-??? divide(??? numerator, ??? denominator)
+int divide(int numerator, int denominator)
 {
-  return ///;
+  assert(denominator != 0);
+  return numerator/denominator;
 }
 
 int main(void)
 {
-  ??? a, b;
+  int a, b;
   printf("Enter numerator and denominator: ");
-  scanf("%??? %???", &a, &b);
-
-  ??? result = divide(a, b);
-  printf("Result: %???\n", result);
+  scanf("%d %d", &a, &b);
+  if (b == 0) {
+    printf("Деление на 0! Аварийное завершение!");
+    return 1;
+  }
+  int result = divide(a, b);
+  printf("Result: %d\n", result);
 
   return 0;
 }

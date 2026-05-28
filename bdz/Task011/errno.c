@@ -3,7 +3,7 @@
 #include <math.h>
 
 int main(void) {
-    double x = sqrt(-1.0);
+    double x = sqrt(+1.0);
     if (errno != 0) {
         printf("Ошибка: %d\n", errno);
         perror("sqrt");

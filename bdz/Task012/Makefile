@@ -1,7 +1,9 @@
-.PHONY: clean all
+.PHONY: prog clean run 
 
-main: clean
+prog: clean
 	gcc -c *.c
 	gcc *.o -o $@
 clean:
 	rm -f *.o
+run:
+	./prog

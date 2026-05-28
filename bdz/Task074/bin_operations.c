@@ -1,8 +1,19 @@
 #include <stdio.h>
 
-void bin(long unsigned int k, long unsigned int size)
-{
-	///
+int setbit(const int value, const int position) {
+	return value | (1 << position);
+}
+
+int checkbit(const int value, const int position) {
+	return (value >> position) & 1;
+}
+
+int switchbit(const int value, const int position) {
+	return value ^ (1 << position);
+}
+
+int unsetbit(const int value, const int position) {
+	return value & ~(1 << position);
 }
 
 struct byte_s {
@@ -16,12 +27,22 @@ struct byte_s {
 	unsigned a7 : 1;
 };
 
+
 union code
 {
 	unsigned char letter;
 	struct byte_s bitfield;
 }byte;
 
+
+void bin(long unsigned int k, long unsigned int size)
+{
+	long unsigned int bits = size * 8;
+	for(long int i = bits - 1; i >= 0; i--) {
+		printf("%d", checkbit(k, i));
+	}
+	printf("\n");
+}
 
 int main()
 {
@@ -30,5 +51,14 @@ int main()
     b.letter = 0b11111111;
     a.letter = setbit(a.letter, 5);
     bin(a.letter, sizeof(a.letter)); // печатает на экран число в двоичном виде
+    
+    union floatf {
+    	float f;
+    	unsigned int u;
+    } float_trick;
+    float_trick.f = 7.62;
+    
+    bin(float_trick.u, sizeof(float_trick.u));
+    
 	return 0;
 }

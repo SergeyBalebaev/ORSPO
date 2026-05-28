@@ -2,7 +2,11 @@
 
 double average(int n, int numbers[])
 {
-  // Enter your code
+  int sum = 0;
+  for(int i = 0; i < n; i++) {
+    sum += numbers[i]; 
+  }
+  return (double)(sum/n);
 }
 
 int main(void)

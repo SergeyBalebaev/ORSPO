@@ -8,8 +8,8 @@ int main() {
     printf("%d\n", *(p + 1));
     printf("%d\n", *(p + 2));
 
-    p = p + 3;
-    printf("%d\n", *p);
+    //p = p + 3;
+    printf("%d\n", *(p+10));
 
     return 0;
 }

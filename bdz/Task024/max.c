@@ -1,3 +1,4 @@
 int max(int a, int b){
-    return ; // тут будет ваш код
+    if (a == b) return b;
+    return a > b ? a : b;
 }

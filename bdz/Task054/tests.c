@@ -73,7 +73,7 @@ void test_delete_head(void) {
 
     push_back(&head, 1);
     push_back(&head, 2);
-
+    
     delete_value(&head, 1);
 
     TEST_ASSERT_EQUAL(2, head->data);

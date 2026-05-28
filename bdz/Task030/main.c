@@ -2,7 +2,12 @@
 
 void fizzbuzz(int n)
 {
-  // Enter your code
+  for(int i = 1; i < n; i++) {
+    printf("%d\r", i);
+    if(i % 3 == 0) printf("Fizz");
+    if(i % 5 == 0) printf("Buzz");
+    printf("\n");
+  }
 }
 
 int main(void)

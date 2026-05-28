@@ -11,4 +11,4 @@ add_executable(myapp main.c)
 target_link_libraries(myapp mylib)
 
 # Добавление пути для поиска заголовочных файлов
-target_include_directories(myapp PRIVATE lib)
+#target_include_directories(myapp PRIVATE lib)
