@@ -1,0 +1,10 @@
+Qwerty asdfgh zxcvbn hello world python random.
+Lorem ipsum dolor sit amet consectetur adipiscing.
+Test example number five with extra words here.
+Another random line of text for testing purposes.
+Generate many lines quickly with this script.
+Jumpy foxes and lazy dogs everywhere now.
+Simple line but still randomly generated today.
+Last example to show hon the output looks.
+Файл готов, можно менять число строк и длину.
+Удачи с вашим проектом!
