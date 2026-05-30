@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Задание 1: Макрос SWAP с использованием typeof
+#define SWAP(a, b) do { \
+    typeof(a) _tmp = (a); \
+    (a) = (b); \
+    (b) = _tmp; \
+} while(0)
+
+// Задание 3: Макрос PRINT_VALUE с использованием _Generic
+// Вспомогательный макрос для получения базового типа (без квалификаторов)
+#define UNQUAL_TYPE(x) typeof_unqual(x)
+
+#define PRINT_VALUE(val) _Generic((val), \
+    int: print_int, \
+    double: print_double, \
+    char*: print_string, \
+    default: print_unknown \
+)(val)
+
+// Функции для вывода различных типов
+void print_int(int x) {
+    printf("%d", x);
+}
+
+void print_double(double x) {
+    printf("%f", x);
+}
+
+void print_string(char* x) {
+    printf("%s", x);
+}
+
+void print_unknown(void* x) {
+    (void)x; // Для подавления предупреждения о неиспользуемом параметре
+    printf("unknown type");
+}
+
+int main() {
+    printf("=== Задание 1: SWAP макрос ===\n");
+    // Тест с целыми числами
+    int a = 10, b = 20;
+    printf("До SWAP: a = %d, b = %d\n", a, b);
+    SWAP(a, b);
+    printf("После SWAP: a = %d, b = %d\n", a, b);
+    
+    // Тест с числами с плавающей точкой
+    double c = 3.14, d = 9.82;
+    printf("\nДо SWAP: c = %.2f, d = %.2f\n", c, d);
+    SWAP(c, d);
+    printf("После SWAP: c = %.2f, d = %.2f\n", c, d);
+    
+    // Тест с указателями
+    char *e = "Hello", *f = "World";
+    printf("\nДо SWAP: e = %s, f = %s\n", e, f);
+    SWAP(e, f);
+    printf("После SWAP: e = %s, f = %s\n", e, f);
+    
+    printf("\n\n=== Задание 2: Удаление квалификаторов ===\n");
+    const int ci = 10;
+    volatile int vi = 20;
+    const volatile int cvi = 30;
+    
+    // Используем typeof_unqual для создания переменных без квалификаторов
+    typeof_unqual(ci) x = ci;    // x имеет тип int (без const)
+    typeof_unqual(vi) y = vi;    // y имеет тип int (без volatile)
+    typeof_unqual(cvi) z = cvi;  // z имеет тип int (без const и volatile)
+    
+    printf("Исходные значения: ci=%d, vi=%d, cvi=%d\n", ci, vi, cvi);
+    printf("До изменения: x=%d, y=%d, z=%d\n", x, y, z);
+    
+    // Изменяем переменные (что было бы невозможно с оригинальными квалификаторами)
+    x = 100;
+    y = 200;
+    z = 300;
+    
+    printf("После изменения: x=%d, y=%d, z=%d\n", x, y, z);
+    printf("Оригинальные значения не изменились: ci=%d, vi=%d, cvi=%d\n", ci, vi, cvi);
+    
+    printf("\n\n=== Задание 3: PRINT_VALUE макрос ===\n");
+    int int_val = 42;
+    double double_val = 3.14159;
+    char* str_val = "Hello, C23!";
+    float float_val = 2.718f;
+    
+    printf("int значение: ");
+    PRINT_VALUE(int_val);
+    printf("\n");
+    
+    printf("double значение: ");
+    PRINT_VALUE(double_val);
+    printf("\n");
+    
+    printf("string значение: ");
+    PRINT_VALUE(str_val);
+    printf("\n");
+    
+    printf("float значение (неподдерживаемый тип): ");
+    PRINT_VALUE(float_val);
+    printf("\n");
+    
+    // Демонстрация работы typeof_unqual с квалификаторами
+    printf("\n=== Дополнительная демонстрация typeof_unqual ===\n");
+    const int* ptr = &int_val;
+    typeof_unqual(ptr) ptr2 = ptr;  // ptr2 имеет тип int* (без const)
+    *ptr2 = 100;  // Можно изменять данные, на которые указывает ptr2
+    printf("Значение int_val после изменения через ptr2: %d\n", int_val);
+    
+    return 0;
+}
