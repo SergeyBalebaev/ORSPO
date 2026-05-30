@@ -25,6 +25,7 @@ void test1()
 	free(e);
 }
 
+
 void test2()
 {
 	int N_mas = 10;

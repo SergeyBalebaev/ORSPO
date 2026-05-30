@@ -1,0 +1,127 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdarg.h>
+
+#define MAXS 1024
+
+void safe_printf(const char* format, ...)
+{
+    char buf[MAXS];
+    va_list args;
+
+    va_start(args, format);
+    vsnprintf(buf, sizeof(buf), format, args);
+    va_end(args);
+
+    if (write(1, buf, strlen(buf)) == 0)
+        return;
+}
+
+/*
+    Заголовок блока памяти.
+
+    [ Block ][ пользовательская память ]
+       ^
+       |
+    служебная информация
+*/
+typedef struct Block {
+    long size;              // размер пользовательской области
+    int free;               // 1 — свободен, 0 — занят
+    struct Block* next;     // следующий блок в списке
+} Block;
+
+static Block* heap_start = NULL;
+
+void malloc_init()
+{
+    heap_start = NULL;
+}
+
+static Block* find_free_block(long numbytes)
+{
+    Block* current = heap_start;
+
+    while (current != NULL) {
+        if (current->free && current->size >= numbytes) {
+            return current;
+        }
+
+        current = current->next;
+    }
+
+    return NULL;
+}
+
+static Block* get_last_block()
+{
+    Block* current = heap_start;
+
+    if (current == NULL)
+        return NULL;
+
+    while (current->next != NULL) {
+        current = current->next;
+    }
+
+    return current;
+}
+
+static Block* request_memory_from_os(long numbytes)
+{
+    void* current_break = sbrk(0);
+
+    void* result = sbrk(sizeof(Block) + numbytes);
+
+    if (result == (void*) -1) {
+        return NULL;
+    }
+
+    Block* block = (Block*) current_break;
+
+    block->size = numbytes;
+    block->free = 0;
+    block->next = NULL;
+
+    if (heap_start == NULL) {
+        heap_start = block;
+    } else {
+        Block* last = get_last_block();
+        last->next = block;
+    }
+
+    return block;
+}
+
+void* malloc(long numbytes)
+{
+    if (numbytes <= 0) {
+        return NULL;
+    }
+
+    Block* block = find_free_block(numbytes);
+
+    if (block != NULL) {
+        block->free = 0;
+        return (void*) (block + 1);
+    }
+
+    block = request_memory_from_os(numbytes);
+
+    if (block == NULL) {
+        return NULL;
+    }
+
+    return (void*) (block + 1);
+}
+
+void free(void* ptr)
+{
+    if (ptr == NULL) {
+        return;
+    }
+
+    Block* block = ((Block*) ptr) - 1;
+    block->free = 1;
+}
